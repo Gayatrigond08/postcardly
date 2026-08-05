@@ -1,9 +1,16 @@
-.hero {
-    padding: 100px 40px;
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:80px;
+    max-width:1200px;
+    margin:0 auto;
+    padding:100px 40px;
 }
 
 .hero-content {
     max-width: 650px;
+    flex:1;
     margin: 0 auto;
     text-align: center;
 }
@@ -30,6 +37,6 @@
 
 .hero-buttons {
     display: flex;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
 }
