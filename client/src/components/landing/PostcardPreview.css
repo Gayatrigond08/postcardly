@@ -21,3 +21,11 @@
     text-align:right;
     margin-bottom:30px;
 }
+
+.timestamp {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    text-align: right;
+    font-style: italic;
+}

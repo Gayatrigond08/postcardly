@@ -19,11 +19,11 @@ function Hero() {
 
     <div className="hero-buttons">
   <Button variant="primary">
-    Start Writing
+   Write a Postcard
   </Button>
 
   <Button variant="secondary">
-    Explore Templates
+   Choose a Design
   </Button>
 </div>
   </div>

@@ -21,7 +21,7 @@ function PostcardPreview() {
       <hr />
 
       <p className="timestamp">
-        5 August 2026 • 4:42 PM
+        5 August 2026 
       </p>
 
     </div>
