@@ -10,10 +10,10 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  background: var(--color-background);
-  color: var(--color-text);
-  font-family: Arial, sans-serif;
+body{
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: "Inter", sans-serif;
 }
 
 a {

@@ -1,0 +1,35 @@
+.hero {
+    padding: 100px 40px;
+}
+
+.hero-content {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-title{
+    font-family: "Cormorant Garamond", serif;
+    font-size: 4rem;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin-bottom: 50px;
+}
+
+.hero-subtitle {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

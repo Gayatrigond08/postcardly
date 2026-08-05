@@ -1,15 +1,19 @@
+import "./Navbar.css";
+
 function Navbar() {
   return (
-    <nav>
-      <h2>Postcardly</h2>
+    <nav className="navbar">
+      <h2 className="logo">Postcardly</h2>
 
-      <ul>
+      <ul className="nav-links">
         <li>Home</li>
         <li>Templates</li>
         <li>About</li>
       </ul>
 
-      <button>Start Writing</button>
+      <button className="nav-button">
+        Start Writing
+      </button>
     </nav>
   );
 }
