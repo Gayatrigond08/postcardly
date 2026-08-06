@@ -1,0 +1,33 @@
+.templates {
+    max-width: 1200px;
+    margin: 120px auto;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.templates-subtitle {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.templates-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.templates-description {
+    max-width: 600px;
+    margin: 0 auto 60px;
+    color: var(--color-text-light);
+    line-height: 1.8;
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    justify-items: center;
+    margin-top: 60px;
+}
