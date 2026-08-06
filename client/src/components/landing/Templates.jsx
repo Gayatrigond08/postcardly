@@ -1,31 +1,30 @@
+import { Link } from "react-router-dom";
 import "./Templates.css";
 import TemplateCard from "./TemplateCard";
 
-function Templates() {
-  const templates = [
-    {
-      title: "Classic Letter",
-      description: "Timeless & Elegant",
-    },
-    {
-      title: "Botanical",
-      description: "Soft & Natural",
-    },
-    {
-      title: "Air Mail",
-      description: "Travel Inspired",
-    },
-    {
-      title: "Coffee Journal",
-      description: "Warm & Cozy",
-    },
-  ];
+const templates = [
+  {
+    title: "Classic Letter",
+    description: "Timeless & Elegant",
+  },
+  {
+    title: "Botanical",
+    description: "Soft & Natural",
+  },
+  {
+    title: "Air Mail",
+    description: "Travel Inspired",
+  },
+  {
+    title: "Coffee Journal",
+    description: "Warm & Cozy",
+  },
+];
 
+function Templates() {
   return (
     <section className="templates">
-      <p className="templates-subtitle">
-        ✨ Find Your Style
-      </p>
+      <p className="templates-subtitle">✨ Find Your Style</p>
 
       <h2 className="templates-title">
         Choose a Design
@@ -37,11 +36,17 @@ function Templates() {
 
       <div className="templates-grid">
         {templates.map((template) => (
-          <TemplateCard
-            key={template.title}
-            title={template.title}
-            description={template.description}
-          />
+          <Link
+  key={template.title}
+  to="/editor"
+  state={{ template }}
+  className="template-link"
+>
+            <TemplateCard
+              title={template.title}
+              description={template.description}
+            />
+          </Link>
         ))}
       </div>
     </section>

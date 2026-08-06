@@ -1,10 +1,18 @@
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    max-width:1200px;
-    margin:0 auto;
-    padding:18px 40px;
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 40px;
+}
+
+.logo {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
 }
 
 .nav-links {
@@ -13,29 +21,31 @@
     gap: 30px;
 }
 
-.nav-button{
-    padding:12px 24px;
-    border:none;
-    border-radius:var(--radius-md);
-    background:var(--color-primary);
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.logo{
-    font-family: "Cormorant Garamond", serif;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.nav-links li {
-    cursor: pointer;
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text);
     transition: color 0.3s ease;
 }
 
-.nav-links li:hover{
-    color:var(--color-primary);
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+.nav-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .nav-button:hover {

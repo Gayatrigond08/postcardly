@@ -1,14 +1,22 @@
-import Navbar from "./components/layout/Navbar";
-import Hero from "./components/landing/Hero";
-import Templates from "./components/landing/Templates";
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Designs from "./pages/Designs";
+import Editor from "./pages/Editor";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Templates />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/designs" element={<Designs />} />
+      <Route path="/editor" element={<Editor />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
+    </Routes>
   );
 }
 

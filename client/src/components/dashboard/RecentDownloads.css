@@ -1,0 +1,28 @@
+.downloads-section {
+    margin-top: 70px;
+    width: 100%;
+}
+
+.downloads-section h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.downloads-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.download-item {
+    background: var(--color-paper);
+    padding: 18px 24px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-soft);
+    transition: 0.3s ease;
+}
+
+.download-item:hover {
+    transform: translateY(-3px);
+}

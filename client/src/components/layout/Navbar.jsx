@@ -1,19 +1,30 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <h2 className="logo">Postcardly</h2>
+      <Link to="/" className="logo">
+        Postcardly
+      </Link>
 
       <ul className="nav-links">
-        <li>Home</li>
-        <li>Templates</li>
-        <li>About</li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+
+        <li>
+          <Link to="/designs">Designs</Link>
+        </li>
+
+        <li>
+          <Link to="/about">About</Link>
+        </li>
       </ul>
 
-      <button className="nav-button">
-        Start Writing
-      </button>
+      <Link to="/designs" className="nav-button">
+        Write a Postcard
+      </Link>
     </nav>
   );
 }

@@ -1,0 +1,156 @@
+.editor-page {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 40px;
+}
+
+.editor-page h1 {
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 3rem;
+    margin-bottom: 50px;
+}
+
+.editor-container {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.editor-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.postcard-preview {
+    width: 380px;
+    background: var(--color-paper);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+.preview-greeting {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.preview-message {
+    line-height: 1.8;
+    margin-bottom: 60px;
+}
+
+.preview-closing {
+    font-style: italic;
+    color: var(--color-text-light);
+    margin-bottom: 8px;
+}
+
+.preview-name {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+.editor-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.save-btn,
+.download-btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn {
+    background: var(--color-primary);
+    color: white;
+}
+
+.save-btn:hover {
+    background: #b87676;
+    transform: translateY(-2px);
+}
+
+.download-btn {
+    background: var(--color-paper);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.download-btn:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.preview-date {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 0.85rem;
+    color: #777;
+    font-style: italic;
+}
+
+.selected-template{
+    text-align:center;
+    color:var(--color-primary);
+    margin-bottom:10px;
+    font-weight:600;
+}
+
+/* 📜 Classic Letter */
+.classic-letter {
+    background: #fffaf2;
+    border: 2px solid #e8d7c3;
+    font-family: "Cormorant Garamond", serif;
+}
+
+/* 🌿 Botanical */
+.botanical {
+    background: #f3fbf4;
+    border: 2px solid #7fb77e;
+    box-shadow: 0 8px 20px rgba(127, 183, 126, 0.15);
+}
+
+/* ✈️ Air Mail */
+.air-mail {
+    background: #f8fbff;
+    border: 3px dashed #4a90e2;
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.15);
+}
+
+/* ☕ Coffee Journal */
+.coffee-journal {
+    background: #f6efe7;
+    border: 2px solid #8b5e3c;
+    box-shadow: 0 8px 20px rgba(139, 94, 60, 0.15);
+}

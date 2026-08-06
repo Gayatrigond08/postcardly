@@ -1,0 +1,21 @@
+.dashboard {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 40px;
+}
+
+.drafts-section {
+    margin-top: 60px;
+}
+
+.drafts-section h2 {
+    margin-bottom: 30px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+}
+
+.draft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}

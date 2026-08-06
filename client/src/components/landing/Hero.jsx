@@ -1,6 +1,8 @@
 import PostcardPreview from "./PostcardPreview";
 import "./Hero.css";
 import Button from "../ui/Button";
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <section className="hero">
@@ -18,13 +20,17 @@ function Hero() {
     </p>
 
     <div className="hero-buttons">
-  <Button variant="primary">
-   Write a Postcard
-  </Button>
+  <Link to="/designs" className="hero-link">
+    <Button variant="primary">
+      Write a Postcard
+    </Button>
+  </Link>
 
-  <Button variant="secondary">
-   Choose a Design
-  </Button>
+  <Link to="/designs" className="hero-link">
+    <Button variant="secondary">
+      Choose a Design
+    </Button>
+  </Link>
 </div>
   </div>
 

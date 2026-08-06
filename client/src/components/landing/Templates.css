@@ -31,3 +31,14 @@
     justify-items: center;
     margin-top: 60px;
 }
+
+.template-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.template-link:hover {
+    transform: translateY(-8px);
+}
