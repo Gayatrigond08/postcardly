@@ -2,9 +2,13 @@ import "./DashboardHero.css";
 import { Link } from "react-router-dom";
 
 function DashboardHero() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <section className="dashboard-hero">
-      <h1>Welcome back! 👋</h1>
+      <h1>
+        Welcome back, {user?.username || "Friend"} 👋
+      </h1>
 
       <p>
         Ready to create another beautiful memory?

@@ -1,14 +1,36 @@
-import Navbar from "../components/layout/Navbar";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import DashboardHero from "../components/dashboard/DashboardHero";
 import DraftCard from "../components/dashboard/DraftCard";
 import RecentDownloads from "../components/dashboard/RecentDownloads";
 import "./Dashboard.css";
 
 function Dashboard() {
+  const [postcards, setPostcards] = useState([]);
+
+  useEffect(() => {
+    const fetchPostcards = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        const response = await axios.get(
+          `http://localhost:7000/api/postcards/${user.id}`
+        );
+
+        console.log(response.data);
+
+        setPostcards(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPostcards();
+  }, []);
+
   return (
     <>
-      <Navbar />
-
       <main className="dashboard">
         <DashboardHero />
 
@@ -17,29 +39,19 @@ function Dashboard() {
           <h2>Recent Drafts</h2>
 
           <div className="draft-grid">
-            <DraftCard
-              title="Birthday Letter"
-              template="Botanical"
-              date="Saved Today"
-            />
-
-            <DraftCard
-              title="Friendship Day"
-              template="Coffee Journal"
-              date="Yesterday"
-            />
-
-            <DraftCard
-              title="Vacation"
-              template="Air Mail"
-              date="2 Days Ago"
-            />
+            {postcards.map((postcard) => (
+              <DraftCard
+                key={postcard._id}
+                title={postcard.title}
+                template={postcard.template}
+                date={new Date(postcard.createdAt).toLocaleDateString()}
+              />
+            ))}
           </div>
         </section>
 
         {/* Recent Downloads */}
         <RecentDownloads />
-
       </main>
     </>
   );
