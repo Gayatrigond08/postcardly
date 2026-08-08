@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import "./RecentDownloads.css";
 
 function RecentDownloads() {
@@ -14,9 +14,7 @@ function RecentDownloads() {
           return;
         }
 
-        const response = await axios.get(
-          `http://localhost:7000/api/postcards/user/${user.id}`
-        );
+        const response = await api.get("/postcards/user");
 
         const downloadedPostcards = response.data
           .filter((postcard) => postcard.downloadedAt)

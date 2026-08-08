@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 import Navbar from "../components/layout/Navbar";
 import "./Editor.css";
 import html2canvas from "html2canvas";
@@ -42,9 +42,7 @@ function Editor() {
 
     const fetchPostcard = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:7000/api/postcards/${id}`
-        );
+        const response = await api.get(`/postcards/${id}`);
 
         const postcard = response.data;
 
@@ -54,7 +52,10 @@ function Editor() {
         setStatus(postcard.status || "draft");
       } catch (error) {
         console.error(error);
-        alert("Failed to load postcard");
+        alert(
+          error.response?.data?.message ||
+            "Failed to load postcard"
+        );
       }
     };
 
@@ -77,8 +78,8 @@ function Editor() {
       };
 
       if (id) {
-        await axios.put(
-          `http://localhost:7000/api/postcards/${id}`,
+        await api.put(
+          `/postcards/${id}`,
           postcardData
         );
 
@@ -86,14 +87,16 @@ function Editor() {
 
         alert("Draft updated successfully! 💾");
       } else {
-        const response = await axios.post(
-          "http://localhost:7000/api/postcards",
+        const response = await api.post(
+          "/postcards",
           postcardData
         );
 
         alert("Draft saved successfully! 💾");
 
-        navigate(`/editor/${response.data.postcard._id}`);
+        navigate(
+          `/editor/${response.data.postcard._id}`
+        );
       }
     } catch (error) {
       console.error(error);
@@ -107,7 +110,11 @@ function Editor() {
 
   // Create final postcard
   const createPostcard = async () => {
-    if (!to.trim() || !message.trim() || !from.trim()) {
+    if (
+      !to.trim() ||
+      !message.trim() ||
+      !from.trim()
+    ) {
       alert(
         "Please fill in To, Message and From before creating your postcard. 💌"
       );
@@ -128,13 +135,13 @@ function Editor() {
       };
 
       if (id) {
-        await axios.put(
-          `http://localhost:7000/api/postcards/${id}`,
+        await api.put(
+          `/postcards/${id}`,
           postcardData
         );
       } else {
-        await axios.post(
-          "http://localhost:7000/api/postcards",
+        await api.post(
+          "/postcards",
           postcardData
         );
       }
@@ -154,7 +161,11 @@ function Editor() {
 
   // Save changes to an already-created postcard
   const saveChanges = async () => {
-    if (!to.trim() || !message.trim() || !from.trim()) {
+    if (
+      !to.trim() ||
+      !message.trim() ||
+      !from.trim()
+    ) {
       alert(
         "Please fill in To, Message and From before saving. 💌"
       );
@@ -164,8 +175,8 @@ function Editor() {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
 
-      await axios.put(
-        `http://localhost:7000/api/postcards/${id}`,
+      await api.put(
+        `/postcards/${id}`,
         {
           title: `${to} Postcard`,
           to,
@@ -190,79 +201,95 @@ function Editor() {
     }
   };
 
-  // Download postcard
+  // Download postcard as PDF
   const downloadPostcard = async () => {
-  const postcard = document.getElementById("postcard-preview");
+    const postcard =
+      document.getElementById("postcard-preview");
 
-  if (!postcard) {
-    alert("Postcard not found!");
-    return;
-  }
+    if (!postcard) {
+      alert("Postcard not found!");
+      return;
+    }
 
-  if (!id) {
-    alert("Please save or create the postcard before downloading.");
-    return;
-  }
+    if (!id) {
+      alert(
+        "Please save or create the postcard before downloading."
+      );
+      return;
+    }
 
-  try {
-    const canvas = await html2canvas(postcard, {
-      scale: 4,
-      useCORS: true,
-      backgroundColor: null,
-    });
+    try {
+      const canvas = await html2canvas(postcard, {
+        scale: 4,
+        useCORS: true,
+        backgroundColor: null,
+      });
 
-    const image = canvas.toDataURL("image/png");
+      const image = canvas.toDataURL("image/png");
 
-    const { jsPDF } = await import("jspdf");
+      const { jsPDF } = await import("jspdf");
 
-    // A4 portrait page
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4",
-    });
+      // A4 portrait page
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
 
-    // A4 dimensions
-    const pageWidth = 210;
-    const pageHeight = 297;
+      // A4 dimensions
+      const pageWidth = 210;
+      const pageHeight = 297;
 
-    // Postcard dimensions: 6 × 4 inches
-    const postcardWidth = 152.4;
-    const postcardHeight = 101.6;
+      // Postcard dimensions: 6 × 4 inches
+      const postcardWidth = 152.4;
+      const postcardHeight = 101.6;
 
-    // Center postcard on the A4 page
-    const x = (pageWidth - postcardWidth) / 2;
-    const y = (pageHeight - postcardHeight) / 2;
+      // Center postcard on A4 page
+      const x =
+        (pageWidth - postcardWidth) / 2;
 
-    // White A4 background
-    pdf.setFillColor(255, 255, 255);
-    pdf.rect(0, 0, pageWidth, pageHeight, "F");
+      const y =
+        (pageHeight - postcardHeight) / 2;
 
-    // Add the postcard
-    pdf.addImage(
-      image,
-      "PNG",
-      x,
-      y,
-      postcardWidth,
-      postcardHeight
-    );
+      // White A4 background
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(
+        0,
+        0,
+        pageWidth,
+        pageHeight,
+        "F"
+      );
 
-    pdf.save(`${to || "postcard"}-postcard.pdf`);
+      // Add postcard
+      pdf.addImage(
+        image,
+        "PNG",
+        x,
+        y,
+        postcardWidth,
+        postcardHeight
+      );
 
-    // Record download
-    await axios.post(
-      `http://localhost:7000/api/postcards/${id}/download`
-    );
-  } catch (error) {
-    console.error(error);
-    alert("Failed to download postcard.");
-  }
-};
+      pdf.save(
+        `${to || "postcard"}-postcard.pdf`
+      );
+
+      // Record download
+      await api.post(
+        `/postcards/${id}/download`
+      );
+    } catch (error) {
+      console.error(error);
+
+      alert("Failed to download postcard.");
+    }
+  };
 
   return (
     <>
       <main className="editor-page">
+
         <p className="selected-template">
           {selectedTemplate}
         </p>
@@ -281,7 +308,9 @@ function Editor() {
                 type="text"
                 placeholder="Recipient's name"
                 value={to}
-                onChange={(e) => setTo(e.target.value)}
+                onChange={(e) =>
+                  setTo(e.target.value)
+                }
               />
             </div>
 
@@ -292,7 +321,9 @@ function Editor() {
                 rows="8"
                 placeholder="Write your postcard..."
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) =>
+                  setMessage(e.target.value)
+                }
               />
             </div>
 
@@ -303,7 +334,9 @@ function Editor() {
                 type="text"
                 placeholder="Your name"
                 value={from}
-                onChange={(e) => setFrom(e.target.value)}
+                onChange={(e) =>
+                  setFrom(e.target.value)
+                }
               />
             </div>
 
@@ -323,7 +356,9 @@ function Editor() {
                   className="save-btn"
                   onClick={saveDraft}
                 >
-                  {id ? "Save Changes" : "Save Draft"}
+                  {id
+                    ? "Save Changes"
+                    : "Save Draft"}
                 </button>
               )}
 
@@ -346,7 +381,6 @@ function Editor() {
               </button>
 
             </div>
-
           </form>
 
           {/* Right Side */}

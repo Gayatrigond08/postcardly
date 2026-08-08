@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
+import api from "../api/axios";
 import DashboardHero from "../components/dashboard/DashboardHero";
 import DraftCard from "../components/dashboard/DraftCard";
 import RecentDownloads from "../components/dashboard/RecentDownloads";
@@ -14,9 +13,7 @@ function Dashboard() {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
 
-        const response = await axios.get(
-          `http://localhost:7000/api/postcards/user/${user.id}`
-        );
+       const response = await api.get("/postcards/user");
 
         setPostcards(response.data);
       } catch (error) {

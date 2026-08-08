@@ -1,6 +1,6 @@
 import "./DraftCard.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios";
 
 function DraftCard({ id, title, template, date, onDelete }) {
   const navigate = useNavigate();
@@ -21,9 +21,7 @@ function DraftCard({ id, title, template, date, onDelete }) {
     }
 
     try {
-      await axios.delete(
-        `http://localhost:7000/api/postcards/${id}`
-      );
+      await api.delete(`/postcards/${id}`);
 
       alert("Postcard deleted successfully! 🗑️");
 

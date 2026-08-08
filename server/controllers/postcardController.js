@@ -9,7 +9,6 @@ export const createPostcard = async (req, res) => {
       message,
       from,
       template,
-      user,
       status,
     } = req.body;
 
@@ -19,7 +18,7 @@ export const createPostcard = async (req, res) => {
       message,
       from,
       template,
-      user,
+      user: req.user.id,
       status: status || "draft",
     });
 
@@ -37,13 +36,11 @@ export const createPostcard = async (req, res) => {
   }
 };
 
-// Get all postcards of a user
+// Get all postcards of logged-in user
 export const getUserPostcards = async (req, res) => {
   try {
-    const { userId } = req.params;
-
     const postcards = await Postcard.find({
-      user: userId,
+      user: req.user.id,
     }).sort({
       createdAt: -1,
     });
@@ -61,7 +58,10 @@ export const getPostcardById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const postcard = await Postcard.findById(id);
+    const postcard = await Postcard.findOne({
+      _id: id,
+      user: req.user.id,
+    });
 
     if (!postcard) {
       return res.status(404).json({
@@ -77,7 +77,7 @@ export const getPostcardById = async (req, res) => {
   }
 };
 
-// Update an existing postcard
+// Update a postcard
 export const updatePostcard = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,8 +91,11 @@ export const updatePostcard = async (req, res) => {
       status,
     } = req.body;
 
-    const postcard = await Postcard.findByIdAndUpdate(
-      id,
+    const postcard = await Postcard.findOneAndUpdate(
+      {
+        _id: id,
+        user: req.user.id,
+      },
       {
         title,
         to,
@@ -116,7 +119,7 @@ export const updatePostcard = async (req, res) => {
     res.status(200).json({
       message:
         postcard.status === "created"
-          ? "Postcard created successfully"
+          ? "Postcard updated successfully"
           : "Draft updated successfully",
       postcard,
     });
@@ -132,7 +135,10 @@ export const deletePostcard = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const postcard = await Postcard.findByIdAndDelete(id);
+    const postcard = await Postcard.findOneAndDelete({
+      _id: id,
+      user: req.user.id,
+    });
 
     if (!postcard) {
       return res.status(404).json({
@@ -155,8 +161,11 @@ export const markPostcardDownloaded = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const postcard = await Postcard.findByIdAndUpdate(
-      id,
+    const postcard = await Postcard.findOneAndUpdate(
+      {
+        _id: id,
+        user: req.user.id,
+      },
       {
         downloadedAt: new Date(),
       },

@@ -9,23 +9,29 @@ import {
   markPostcardDownloaded,
 } from "../controllers/postcardController.js";
 
+import authMiddleware from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
+// All postcard routes require login
+router.use(authMiddleware);
+
+// Create postcard / draft
 router.post("/", createPostcard);
 
-// Get all postcards of a user
-router.get("/user/:userId", getUserPostcards);
+// Get user's postcards
+router.get("/user", getUserPostcards);
 
 // Mark postcard as downloaded
 router.post("/:id/download", markPostcardDownloaded);
 
-// Update an existing postcard
+// Update postcard
 router.put("/:id", updatePostcard);
 
-// Delete a postcard
+// Delete postcard
 router.delete("/:id", deletePostcard);
 
-// Get one specific postcard
+// Get one postcard
 router.get("/:id", getPostcardById);
 
 export default router;
